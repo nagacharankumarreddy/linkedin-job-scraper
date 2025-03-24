@@ -1,6 +1,9 @@
 name: LinkedIn Job Scraper
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "30 2 * * *"
   workflow_dispatch:
@@ -22,7 +25,10 @@ jobs:
         run: |
           pip install -r requirements.txt
           sudo apt update
-          sudo apt install -y google-chrome-stable chromium-chromedriver
+          sudo apt install -y wget
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+          sudo apt install -y chromium-chromedriver
           pip install selenium pandas beautifulsoup4 openpyxl
 
       - name: Run the scraper
