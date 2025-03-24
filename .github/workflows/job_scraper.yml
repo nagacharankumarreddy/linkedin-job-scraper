@@ -21,15 +21,20 @@ jobs:
         with:
           python-version: "3.9"
 
+      - name: Install Chrome and ChromeDriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+          sudo apt-get install -y chromium-chromedriver
+          google-chrome --version
+          chromedriver --version
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          sudo apt update
-          sudo apt install -y wget
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
-          sudo apt install -y chromium-chromedriver
-          pip install selenium pandas beautifulsoup4 openpyxl
+          pip install selenium pandas beautifulsoup4 openpyxl webdriver-manager
 
       - name: Run the scraper
         run: python getJobs.py
