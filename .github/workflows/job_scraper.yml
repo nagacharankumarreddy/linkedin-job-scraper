@@ -2,7 +2,7 @@ name: LinkedIn Job Scraper
 
 on:
   schedule:
-    - cron: "0 9 * * *"
+    - cron: "30 2 * * *"
   workflow_dispatch:
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           sudo apt update
-          sudo apt install -y chromium-chromedriver
+          sudo apt install -y google-chrome-stable chromium-chromedriver
           pip install selenium pandas beautifulsoup4 openpyxl
 
       - name: Run the scraper
